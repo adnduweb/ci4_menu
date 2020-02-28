@@ -1,0 +1,34 @@
+{
+    "name": "spreadaurora/ci4_menu",
+    "description": "gestion des menus for CodeIgniter 4",
+    "keywords": [
+        "codeigniter",
+        "codeigniter4",
+        "mernu"
+    ],
+    "homepage": "https://github.com/adnduweb/ci4_menu",
+    "license": "MIT",
+    "authors": [{
+        "name": "Fabrice Loru",
+        "email": "fabrice@adnduweb.com",
+        "homepage": "https://www.adnduweb.com",
+        "role": "Developer"
+    }],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.2"
+    },
+    "require-dev": {
+        "codeigniter4/framework": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spreadaurora\\Ci4_menu\\": "src"
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "composer dump-autoload"
+        ]
+    }
+}
