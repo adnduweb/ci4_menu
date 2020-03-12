@@ -4,5 +4,5 @@ use CodeIgniter\Config\BaseConfig;
 
 class Menu extends BaseConfig
 {
-  public $paginationPerPage = 10;
+  public $depth = 3;
 }

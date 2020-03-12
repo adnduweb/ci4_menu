@@ -9,29 +9,29 @@
     ],
     "homepage": "https://github.com/adnduweb/ci4_menu",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Fabrice Loru",
-            "email": "contacta@adnduweb.com",
-            "homepage": "https://www.adnduweb.com",
-            "role": "Developer"
-        }
-    ],
+    "authors": [{
+        "name": "Fabrice Loru",
+        "email": "contacta@adnduweb.com",
+        "homepage": "https://www.adnduweb.com",
+        "role": "Developer"
+    }],
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+
     },
     "require-dev": {
         "codeigniter4/codeigniter4-standard": "^1.0.1",
         "codeigniter4/framework": "^4",
         "phpunit/phpunit": "^8",
-        "squizlabs/php_codesniffer": "^3.1"
+        "squizlabs/php_codesniffer": "^3.1",
+        "spreadaurora/ci4_page": "1.*"
     },
     "config": {
         "sort-packages": true
     },
     "autoload": {
         "psr-4": {
-            "Spreadaurora\\Ci4_menu\\": "src/"
+            "Spreadaurora\\ci4_menu\\": "src/"
         }
     },
     "minimum-stability": "dev",
