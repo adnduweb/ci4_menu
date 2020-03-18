@@ -8,7 +8,44 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
 {
     public function run()
     {
- 
+
+        $db = \Config\Database::connect();
+
+        //Menu
+        $rowsItem = [
+            'id_menu_item' => 1,
+            'name'         => 'main menu',
+            'handle'       => 'main_menu',
+            'created_at'   => date('Y-m-d H:i:s'),
+        ];
+
+        $db->table('menus_items')->insert($rowsItem);
+        //$id_menu_item = $db->insertID();
+
+        $rows = [
+            'id'             => 1,
+            'id_menu_item'   => 1,
+            'id_parent'      => 0,
+            'depth'          => 1,
+            'left'           => 2,
+            'right'          => 3,
+            'position'       => 1,
+            'id_module'      => null,
+            'id_item_module' => null,
+            'active'         => 1,
+            'icon'           => '',
+            'slug'           => '/',
+        ];
+        $db->table('menus')->insert($rows);
+
+        $rowsLang =  [
+            'menu_id' => 1,
+            'id_lang' => 1,
+            'name'    => 'Page d\'accueil'
+        ];
+        $db->table('menus_langs')->insert($rowsLang);
+
+
         $rowsTabs = [
             [
                 'id_parent'         => 17,
@@ -46,9 +83,9 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
                 $newInsert = $db->insertID();
                 $i = 0;
                 foreach ($rowsTabsLangs as $rowLang) {
-                        $rowLang['menu_id']   = $newInsert;
-                        // No setting - add the row
-                        $db->table('tabs_langs')->insert($rowLang);
+                    $rowLang['tab_id']   = $newInsert;
+                    // No setting - add the row
+                    $db->table('tabs_langs')->insert($rowLang);
                     $i++;
                 }
             }
@@ -81,13 +118,28 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
             ]
         ];
 
-         // On insére le role par default au user
-         foreach ($rowsPermissionsMenus as $row) {
+        // On insére le role par default au user
+        foreach ($rowsPermissionsMenus as $row) {
             $tabRow =  $db->table('auth_permissions')->where(['name' => $row['name']])->get()->getRow();
             if (empty($tabRow)) {
                 // No langue - add the row
                 $db->table('auth_permissions')->insert($row);
             }
+        }
+
+        //Gestion des module
+        $rowsModulePages = [
+            'name'       => 'menus',
+            'namespace'  => 'Spreadaurora\ci4_menu',
+            'active'     => 1,
+            'version'    => '1.1.3',
+            'created_at' =>  date('Y-m-d H:i:s')
+        ];
+
+        $tabRow =  $db->table('modules')->where(['name' => $rowsModulePages['name']])->get()->getRow();
+        if (empty($tabRow)) {
+            // No langue - add the row
+            $db->table('modules')->insert($rowsModulePages);
         }
     }
 }

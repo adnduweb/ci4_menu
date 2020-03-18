@@ -17,11 +17,12 @@
 // On définit la langue dans la route
 
 
-$routes->group(CI_SITE_AREA, ['namespace' => '\Spreadaurora\ci4_menu\Controllers\Admin'], function ($routes) {
+$routes->group(CI_SITE_AREA, ['namespace' => '\Spreadaurora\ci4_menu\Controllers\Admin', 'filter' => 'apiauth'], function ($routes) {
 
-    $routes->get('(:num)/(:any)/menu', 'AdminMenusController::renderViewList', ['as' => 'page-index']);
-    $routes->get('(:num)/(:any)/menu/edit/(:any)', 'AdminMenusController::renderForm/$3');
-    $routes->post('(:num)/(:any)/menu/edit/(:any)', 'AdminMenusController::postProcess/$3');
-    $routes->get('(:num)/(:any)/menu/add', 'AdminMenusController::renderForm');
-    $routes->post('(:num)/(:any)/menu/add', 'AdminMenusController::postProcess');
+    $routes->get('(:num)/(:any)/menus/(:num)', 'AdminMenusController::renderView/$3', ['as' => 'menu-index']);
+    $routes->get('(:num)/(:any)/menus/edit/(:num)', 'AdminMenusController::renderForm/$3');
+    $routes->post('(:num)/(:any)/menus/edit/(:num)', 'AdminMenusController::postProcess/$3');
+    $routes->get('(:num)/(:any)/menus/add', 'AdminMenusController::renderForm');
+    $routes->post('(:num)/(:any)/menus/add', 'AdminMenusController::postProcess');
+    $routes->get('(:num)/(:any)/menus/delete/(:num)', 'AdminMenusController::delete/$3');
 });
