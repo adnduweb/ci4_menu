@@ -28,6 +28,12 @@ class Menu extends Entity
         return $this->setmenusLangs()['menus_langs'][$id_lang]->name ?? null;
     }
 
+    public function getSlug()
+    {
+        // print_r($this->setmenusLangs()); exit;
+        return $this->attributes['slug'] ?? null;
+    }
+
     public function setmenusLangs()
     {
         if (!empty($this->menus_langs)) {

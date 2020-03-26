@@ -91,4 +91,15 @@ class MenusModel extends Model
     {
         return $this->db->table('menus')->delete(['id_menu_item' => $id_menu_item]);
     }
+
+    public function getAllMenuFront(int $id_menu_item, int $id_lang)
+    {
+        $this->menu->select();
+        $this->menu->join($this->tableLang, $this->table . '.' . $this->primaryKey . ' = ' . $this->tableLang . '.menu_id');
+        $this->menu->where('id_menu_item= ' . $id_menu_item . ' AND id_lang = ' . $id_lang);
+        $this->menu->orderBy('left ASC');
+        $menuResult = $this->menu->get()->getResult();
+        //echo $this->menu->getCompiledSelect(); exit;
+        return $menuResult;
+    }
 }

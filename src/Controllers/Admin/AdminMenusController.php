@@ -26,6 +26,7 @@ class AdminMenusController extends AdminController
     public $fieldList = 'name';
     public $add = true;
     public $multilangue = true;
+    public $multilangue_list = true;
 
     protected $instances = [];
 
@@ -47,6 +48,7 @@ class AdminMenusController extends AdminController
         if (is_object($parent) && $parent->getStatusCode() == 307) {
             return $parent;
         }
+        $this->data['multilangue_list'] = $this->multilangue_list;
         $id_menu_item = (int) $id;
         $this->data['menu_item'] = $this->tableModel->getMenusItem($id_menu_item);
         if (empty($this->data['menu_item'])) {
@@ -163,6 +165,7 @@ class AdminMenusController extends AdminController
             if (isset($output['page-menu'])) {
                 foreach ($output['page-menu'] as $k => $v) {
                     foreach ($v as $id_item_module => $lang) {
+                        //$page =  Spreadaurora\ci4_page\Entities\Page();
                         $menu                 = new Menu();
                         $menu->id_menu_item   = $output['id_menu_item'];
                         $menu->active         = 1;

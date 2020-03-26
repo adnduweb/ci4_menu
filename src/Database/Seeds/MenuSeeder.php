@@ -58,7 +58,7 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
                 'class_name'        => 'AdminMenus',
                 'active'            =>  1,
                 'icon'              => '',
-                'slug'             => 'menus',
+                'slug'             => 'menus/1',
                 'name_controller'       => ''
             ],
         ];
