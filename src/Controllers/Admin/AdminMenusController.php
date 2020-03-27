@@ -2,7 +2,7 @@
 
 namespace Spreadaurora\ci4_menu\Controllers\Admin;
 
-use App\controllers\Admin\AdminController;
+use App\Controllers\Admin\AdminController;
 use CodeIgniter\HTTP\RedirectResponse;
 
 use App\Libraries\AssetsBO;
@@ -34,7 +34,7 @@ class AdminMenusController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        helper('menu');
+        helper('Menu');
         $this->controller_type = 'adminmenus';
         $this->module = "menus";
         $this->tableModel  = new MenusModel();
