@@ -1,9 +1,9 @@
 <?php
 
-namespace Spreadaurora\ci4_menu\Models;
+namespace Adnduweb\Ci4_menu\Models;
 
 use CodeIgniter\Model;
-use Spreadaurora\ci4_menu\Entities\Menu;
+use Adnduweb\Ci4_menu\Entities\Menu;
 
 class MenusModel extends Model
 {

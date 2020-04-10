@@ -1,6 +1,6 @@
 <?php
 
-use Spreadaurora\ci4_menu\Entities\Menu;
+use Adnduweb\Ci4_menu\Entities\Menu;
 
 if (!function_exists('afficher_menu_admin')) {
     function afficher_menu_admin($parent, $niveau, $array, $table = 'tabs')

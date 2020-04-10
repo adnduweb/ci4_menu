@@ -1,5 +1,5 @@
 {
-    "name": "spreadaurora/ci4_menu",
+    "name": "adnduweb/ci4_menu",
     "type": "library",
     "description": "An Example of CodeIgniter 4 Menu module",
     "keywords": [
@@ -17,7 +17,7 @@
     }],
     "require": {
         "php": "^7.2",
-        "spreadaurora/ci4_page": "^1"
+        "adnduweb/ci4_page": "^1"
     },
     "require-dev": {
         "codeigniter4/codeigniter4-standard": "^1.0.1",
@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Spreadaurora\\ci4_menu\\": "src/"
+            "Adnduweb\\Ci4_menu\\": "src/"
         }
     },
     "minimum-stability": "dev",

@@ -1,6 +1,6 @@
 <?php
 
-namespace Spreadaurora\ci4_menu\Controllers\Admin;
+namespace Adnduweb\Ci4_menu\Controllers\Admin;
 
 use App\Controllers\Admin\AdminController;
 use CodeIgniter\HTTP\RedirectResponse;
@@ -9,10 +9,10 @@ use App\Libraries\AssetsBO;
 use App\Libraries\Tools;
 use App\Entities\Module;
 use App\Models\ModulesModel;
-use Spreadaurora\ci4_menu\Entities\Menu;
-use Spreadaurora\ci4_menu\Entities\MenuItem;
-use Spreadaurora\ci4_menu\Models\MenusModel;
-use Spreadaurora\ci4_menu\Models\MenusItemsModel;
+use Adnduweb\Ci4_menu\Entities\Menu;
+use Adnduweb\Ci4_menu\Entities\MenuItem;
+use Adnduweb\Ci4_menu\Models\MenusModel;
+use Adnduweb\Ci4_menu\Models\MenusItemsModel;
 
 class AdminMenusController extends AdminController
 {
@@ -65,7 +65,7 @@ class AdminMenusController extends AdminController
         $list_modules = $modules->getAll();
         if (!empty($list_modules)) {
             foreach ($list_modules as $module) {
-                if ($module->namespace != 'Spreadaurora\ci4_menu') {
+                if ($module->namespace != 'Adnduweb\Ci4_menu') {
                     $className = '\\' . $module->namespace . '\Models\\' . ucfirst($module->name) . 'Model';
                     if (class_exists($className)) {
                         $this->instances[$module->namespace] = new $className();

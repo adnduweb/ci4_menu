@@ -1,6 +1,6 @@
 <?php
 
-namespace Spreadaurora\ci4_menu\Entities;
+namespace Adnduweb\Ci4_menu\Entities;
 
 use CodeIgniter\Entity;
 

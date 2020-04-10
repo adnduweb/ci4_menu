@@ -17,7 +17,7 @@
 // On définit la langue dans la route
 
 
-$routes->group(CI_SITE_AREA, ['namespace' => '\Spreadaurora\ci4_menu\Controllers\Admin', 'filter' => 'apiauth'], function ($routes) {
+$routes->group(CI_SITE_AREA, ['namespace' => '\Adnduweb\Ci4_menu\Controllers\Admin', 'filter' => 'apiauth'], function ($routes) {
 
     $routes->get('(:num)/(:any)/menus/(:num)', 'AdminMenusController::renderView/$3', ['as' => 'menu-index']);
     $routes->get('(:num)/(:any)/menus/edit/(:num)', 'AdminMenusController::renderForm/$3');

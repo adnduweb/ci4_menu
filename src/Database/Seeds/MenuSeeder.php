@@ -1,8 +1,8 @@
 <?php
 
-namespace Spreadaurora\ci4_menu\Database\Seeds;
+namespace Adnduweb\Ci4_menu\Database\Seeds;
 
-use Spreadaurora\ci4_menu\Models\MenusModel;
+use Adnduweb\Ci4_menu\Models\MenusModel;
 
 class Menuseeder extends \CodeIgniter\Database\Seeder
 {
@@ -54,7 +54,7 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
                 'right'             => 34,
                 'position'          => 1,
                 'section'           => 0,
-                'module'            => 'Spreadaurora\ci4_menu',
+                'module'            => 'Adnduweb\Ci4_menu',
                 'class_name'        => 'AdminMenus',
                 'active'            =>  1,
                 'icon'              => '',
@@ -92,7 +92,7 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
         }
 
         /**
-         * 
+         *
          * Gestion des permissions
          */
         $rowsPermissionsMenus = [
@@ -130,7 +130,7 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
         //Gestion des module
         $rowsModulePages = [
             'name'       => 'menus',
-            'namespace'  => 'Spreadaurora\ci4_menu',
+            'namespace'  => 'Adnduweb\Ci4_menu',
             'active'     => 1,
             'version'    => '1.1.3',
             'created_at' =>  date('Y-m-d H:i:s')

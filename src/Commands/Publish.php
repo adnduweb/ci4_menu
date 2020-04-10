@@ -1,6 +1,6 @@
 <?php
 
-namespace Spreadaurora\ci4_menu\Commands;
+namespace Adnduweb\Ci4_menu\Commands;
 
 use Config\Autoload;
 use CodeIgniter\CLI\CLI;

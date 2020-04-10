@@ -43,7 +43,7 @@
                     <h2 style="margin-bottom:30px;">Menu : <?= $menu_item->name; ?></h2>
                     <div class="dd" id="nestable">
                         <div id="wrapper_nestable">
-                            <?= $this->include('\Spreadaurora\ci4_menu\Views\Admin\Themes\metronic\__form_section\get_menu'); ?>
+                            <?= $this->include('\Adnduweb\Ci4_menu\Views\Admin\Themes\metronic\__form_section\get_menu'); ?>
                         </div>
                     </div>
                     <?php if (inGroups(1, user()->id)) {   ?>
@@ -78,7 +78,7 @@
                         <?= form_close(); ?>
                     <?php } ?>
 
-                    <?= $this->include('\Spreadaurora\ci4_menu\Views\Admin\Themes\metronic\__form_section\add_menu'); ?>
+                    <?= $this->include('\Adnduweb\Ci4_menu\Views\Admin\Themes\metronic\__form_section\add_menu'); ?>
 
 
                 </div>
