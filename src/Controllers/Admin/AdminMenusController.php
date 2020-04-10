@@ -21,7 +21,7 @@ class AdminMenusController extends AdminController
     public $module = true;
     public $controller = 'menus';
     public $item = 'menu';
-    public $type = 'Spreadaurora/ci4_menu';
+    public $type = 'Adnduweb/Ci4_menu';
     public $pathcontroller  = '/public/menus';
     public $fieldList = 'name';
     public $add = true;
@@ -78,7 +78,7 @@ class AdminMenusController extends AdminController
         $this->data['menu_items'] = $this->tableModel->getMenusItems();
 
 
-        return view($this->get_current_theme_view('index', 'Spreadaurora/ci4_menu'), $this->data);
+        return view($this->get_current_theme_view('index', 'Adnduweb/Ci4_menu'), $this->data);
     }
 
     public function ajaxProcessSortMenu()
@@ -148,7 +148,7 @@ class AdminMenusController extends AdminController
                 $menuItem->saveLang($this->tabs_langs, $menuId);
                 $this->data['menu'] = $this->tableModel->where('id_menu_item', $menu->id_menu_item)->orderBy('left', 'ACS')->get()->getResult();
                 $this->data['menu_item'] = $this->tableModel->getMenusItems();
-                $html = view($this->get_current_theme_view('__form_section/get_menu', 'Spreadaurora/ci4_menu'), $this->data);
+                $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                 return $this->respond(['status' => true, 'type' => lang('Core.cool_success'), 'message' => lang('Core.saved_data'), 'html' => $html], 200);
             } else {
                 return $this->respond(['status' => false, 'message' => lang('Core.une errur est survenue') .  ' : ' . print_r($menu, true)], 200);
@@ -165,7 +165,7 @@ class AdminMenusController extends AdminController
             if (isset($output['page-menu'])) {
                 foreach ($output['page-menu'] as $k => $v) {
                     foreach ($v as $id_item_module => $lang) {
-                        //$page =  Spreadaurora\ci4_page\Entities\Page();
+                        //$page =  Adnduweb\Ci4_page\Entities\Page();
                         $menu                 = new Menu();
                         $menu->id_menu_item   = $output['id_menu_item'];
                         $menu->active         = 1;
@@ -186,7 +186,7 @@ class AdminMenusController extends AdminController
                             $menuItem->saveLang($this->tabs_langs, $menuId);
                             $this->data['menu'] = $this->tableModel->where('id_menu_item', $menu->id_menu_item)->orderBy('left', 'ACS')->get()->getResult();
                             $this->data['menu_item'] = $this->tableModel->getMenusItems();
-                            $html = view($this->get_current_theme_view('__form_section/get_menu', 'Spreadaurora/ci4_menu'), $this->data);
+                            $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                             return $this->respond(['status' => true, 'type' => lang('Core.cool_success'), 'message' => lang('Core.saved_data'), 'html' => $html], 200);
                         } else {
                             return $this->respond(['status' => false, 'message' => lang('Core.une errur est survenue') .  ' : ' . print_r($menu, true)], 200);
@@ -202,7 +202,7 @@ class AdminMenusController extends AdminController
         if ($value = $this->request->getPost('value')) {
             $this->data['form'] = $this->tableModel->find($value);
             $this->data['menu_items'] = $this->tableModel->getMenusItems();
-            $html = view($this->get_current_theme_view('__form_section/edit_menu', 'Spreadaurora/ci4_menu'), $this->data);
+            $html = view($this->get_current_theme_view('__form_section/edit_menu', 'Adnduweb/Ci4_menu'), $this->data);
             return $this->respond(['status' => true, 'html' => $html], 200);
         }
     }
@@ -225,7 +225,7 @@ class AdminMenusController extends AdminController
 
                 $this->data['menu'] = $this->tableModel->where('id_menu_item', $menu->id_menu_item)->orderBy('left', 'ACS')->get()->getResult();
                 $this->data['menu_item'] = $this->tableModel->getMenusItems();
-                $html = view($this->get_current_theme_view('__form_section/get_menu', 'Spreadaurora/ci4_menu'), $this->data);
+                $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                 return $this->respond(['status' => true, 'type' => 'success', 'message' => lang('Js.your_selected_records_have_been_deleted'), 'html' => $html], 200);
             } else {
                 return $this->respond(['status' => false, 'database' => true, 'display' => 'modal', 'message' => lang('Js.aucun_enregistrement_effectue')], 200);
@@ -254,7 +254,7 @@ class AdminMenusController extends AdminController
             $this->data['form'] = $this->tableModel->getMenusItem($id);
             $this->data['title_detail'] = $this->data['form']->name;
         }
-        return view($this->get_current_theme_view('form', 'Spreadaurora/ci4_menu'), $this->data);
+        return view($this->get_current_theme_view('form', 'Adnduweb/Ci4_menu'), $this->data);
     }
 
     public function postProcessEdit($param)

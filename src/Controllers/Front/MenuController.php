@@ -1,9 +1,9 @@
 <?php
 
-namespace Spreadaurora\ci4_page\Controllers\Front;
+namespace Adnduweb\Ci4_page\Controllers\Front;
 
 use CodeIgniter\API\ResponseTrait;
-use Spreadaurora\ci4_page\Models\PagesModel;
+use Adnduweb\Ci4_page\Models\PagesModel;
 
 class FrontPagesController extends \App\Controllers\Front\FrontController
 {

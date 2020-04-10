@@ -14,7 +14,7 @@ class Publish extends BaseCommand
      *
      * @var string
      */
-    protected $group = 'SpreadAurora';
+    protected $group = 'Adnduweb';
 
     /**
      * The Command's name

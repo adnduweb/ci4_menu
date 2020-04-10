@@ -114,7 +114,7 @@
                     controller: "AdminMenusController",
                     action: "sortmenu",
                     value: list.nestable('toArray'),
-                    module: window.btoa('Spreadaurora/ci4_menu'),
+                    module: window.btoa('Adnduweb/Ci4_menu'),
                 },
                 responseType: 'json',
                 success: function(response, status, xhr) {
@@ -191,7 +191,7 @@
                     controller: "AdminMenusController",
                     action: "saveMenu",
                     value: $('#menu-add-module').serialize(),
-                    module: window.btoa('Spreadaurora/ci4_menu'),
+                    module: window.btoa('Adnduweb/Ci4_menu'),
                 },
                 responseType: 'json',
                 beforeSend: function(xhr, settings) {
@@ -256,7 +256,7 @@
                     controller: "AdminMenusController",
                     action: "saveMenuCustom",
                     value: $('#menu-' + action).serialize(),
-                    module: window.btoa('Spreadaurora/ci4_menu'),
+                    module: window.btoa('Adnduweb/Ci4_menu'),
                 },
                 responseType: 'json',
                 beforeSend: function(xhr, settings) {
@@ -315,7 +315,7 @@
                     controller: "AdminMenusController",
                     action: "getMenu",
                     value: id,
-                    module: window.btoa('Spreadaurora/ci4_menu'),
+                    module: window.btoa('Adnduweb/Ci4_menu'),
                 },
                 responseType: 'json',
                 success: function(response, status, xhr) {
@@ -360,7 +360,7 @@
                             controller: "AdminMenusController",
                             action: "deleteMenuItem",
                             value: id,
-                            module: window.btoa('Spreadaurora/ci4_menu'),
+                            module: window.btoa('Adnduweb/Ci4_menu'),
                         },
                         responseType: 'json',
                         beforeSend: function(xhr, settings) {
@@ -422,7 +422,7 @@
             //         controller: "AdminMenusController",
             //         action: "deleteMenuItem",
             //         value: id,
-            //         module: window.btoa('Spreadaurora/ci4_menu'),
+            //         module: window.btoa('Adnduweb/Ci4_menu'),
             //     },
             //     responseType: 'json',
             //     success: function(response, status, xhr) {

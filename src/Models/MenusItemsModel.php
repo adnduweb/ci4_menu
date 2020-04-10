@@ -7,7 +7,7 @@ use Adnduweb\Ci4_menu\Entities\MenuItem;
 
 class MenusItemsModel extends Model
 {
-    use \Spreadaurora\Ci4_logs\Traits\AuditsTrait;
+    use \Adnduweb\Ci4_logs\Traits\AuditsTrait;
     protected $afterInsert = ['auditInsert'];
     protected $afterUpdate = ['auditUpdate'];
     protected $afterDelete = ['auditDelete'];
