@@ -1,1 +1,0 @@
-<?= (afficher_menu_admin(0, 0, $menu, 'menus')); ?>
