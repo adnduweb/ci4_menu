@@ -53,7 +53,7 @@ class AdminMenusController extends AdminController
         $this->data['menu_item'] = $this->tableModel->getMenusItem($id_menu_item);
         if (empty($this->data['menu_item'])) {
             Tools::set_message('danger', lang('Core.item_no_exist'), lang('Core.warning_error'));
-            return redirect()->to('/' . CI_SITE_AREA . '/' . user()->id_company . $this->pathcontroller . '/1');
+            return redirect()->to('/' . CI_SITE_AREA . $this->pathcontroller . '/1');
         }
 
 
@@ -134,7 +134,8 @@ class AdminMenusController extends AdminController
             $menu->left         = $output['left'];
             $menu->right        = $output['right'];
             $menu->id_parent    = (isset($output['parent_id'])) ? $output['parent_id'] : 0;
-            $menu->slug = "/" . strtolower(preg_replace('/[^a-zA-Z0-9\-]/', '', preg_replace('/\s+/', '-', $output['slug'])));
+            //$menu->slug = ($output['slug'] == "#") ? "#" : strtolower(preg_replace('/[^a-zA-Z0-9\-]/', '', preg_replace('/\s+/', '-', $output['slug'])));
+            $menu->slug = $output['slug'];
             $menu->icon = null;
             if ($this->tableModel->save($menu) != false) {
                 if (isset($output['edit_form'])) {
@@ -238,7 +239,7 @@ class AdminMenusController extends AdminController
 
         if (!has_permission(ucfirst($this->controller) . '::edit', user()->id)) {
             Tools::set_message('danger', lang('Core.not_acces_permission'), lang('Core.warning_error'));
-            return redirect()->to('/' . CI_SITE_AREA . '/' . user()->id_company . $this->pathcontroller . '/1');
+            return redirect()->to('/' . CI_SITE_AREA . $this->pathcontroller . '/1');
         }
 
         $this->data['backPathController'] = $this->pathcontroller . '/1';
@@ -281,7 +282,7 @@ class AdminMenusController extends AdminController
         // Success!
         Tools::set_message('success', lang('Core.save_data'), lang('Core.cool_success'));
         $redirectAfterForm = [
-            'url'                   => '/' . env('CI_SITE_AREA') . '/' . user()->id_company . '/public/menus',
+            'url'                   => '/' . env('CI_SITE_AREA') . '/public/menus',
             'action'                => 'edit',
             'submithandler'         => $this->request->getPost('submithandler'),
             'id'                    => $menuBase->id_menu_item,
@@ -314,7 +315,7 @@ class AdminMenusController extends AdminController
         // Success!
         Tools::set_message('success', lang('Core.save_data'), lang('Core.cool_success'));
         $redirectAfterForm = [
-            'url'                   => '/' . env('CI_SITE_AREA') . '/' . user()->id_company . '/public/menus',
+            'url'                   => '/' . env('CI_SITE_AREA') . '/public/menus',
             'action'                => 'add',
             'submithandler'         => $this->request->getPost('submithandler'),
             'id'                    => $id_menu_item,
@@ -330,6 +331,6 @@ class AdminMenusController extends AdminController
         $this->tableModel->deleteItem($id_menu_item);
 
         Tools::set_message('success', lang('Core.delete_data'), lang('Core.cool_success'));
-        return redirect()->to('/' . CI_SITE_AREA . '/' . user()->id_company . $this->pathcontroller . '/1');
+        return redirect()->to('/' . CI_SITE_AREA . $this->pathcontroller . '/1');
     }
 }

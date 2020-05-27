@@ -19,10 +19,10 @@
 
 $routes->group(CI_SITE_AREA, ['namespace' => '\Adnduweb\Ci4_menu\Controllers\Admin', 'filter' => 'apiauth'], function ($routes) {
 
-    $routes->get('(:num)/(:any)/menus/(:num)', 'AdminMenusController::renderView/$3', ['as' => 'menu-index']);
-    $routes->get('(:num)/(:any)/menus/edit/(:num)', 'AdminMenusController::renderForm/$3');
-    $routes->post('(:num)/(:any)/menus/edit/(:num)', 'AdminMenusController::postProcess/$3');
-    $routes->get('(:num)/(:any)/menus/add', 'AdminMenusController::renderForm');
-    $routes->post('(:num)/(:any)/menus/add', 'AdminMenusController::postProcess');
-    $routes->get('(:num)/(:any)/menus/delete/(:num)', 'AdminMenusController::delete/$3');
+    $routes->get('(:any)/menus/(:num)', 'AdminMenusController::renderView/$2', ['as' => 'menu-index']);
+    $routes->get('(:any)/menus/edit/(:num)', 'AdminMenusController::renderForm/$2');
+    $routes->post('(:any)/menus/edit/(:num)', 'AdminMenusController::postProcess/$2');
+    $routes->get('(:any)/menus/add', 'AdminMenusController::renderForm');
+    $routes->post('(:any)/menus/add', 'AdminMenusController::postProcess');
+    $routes->get('(:any)/menus/delete/(:num)', 'AdminMenusController::delete/$2');
 });

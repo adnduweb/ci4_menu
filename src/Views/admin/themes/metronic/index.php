@@ -11,7 +11,7 @@
                 <h3 class="kt-portlet__head-title">
                     <?php foreach ($menu_items as $item) { ?>
                         <div class="btn-group">
-                            <a href="/<?= CI_SITE_AREA; ?>/<?= user()->id_company; ?>/public/menus/<?= $item->id_menu_item; ?>" class=" btn btn-sm btn-brand">
+                            <a href="/<?= CI_SITE_AREA; ?>/public/menus/<?= $item->id_menu_item; ?>" class=" btn btn-sm btn-brand">
                                 Menu : <?= $item->name; ?>
                             </a>
                             <button type="button" class="btn btn-sm btn-brand dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,11 +20,11 @@
                                 <ul class="kt-nav">
                                     <?php if ($item->id_menu_item != '1') { ?>
                                         <li class="kt-nav__item">
-                                            <a class="kt-nav__link" href="/<?= CI_SITE_AREA; ?>/<?= user()->id_company; ?>/public/menus/delete/<?= $item->id_menu_item; ?>"><i class="la la-trash"></i> <?= lang('Core.delete'); ?></a>
+                                            <a class="kt-nav__link" href="/<?= CI_SITE_AREA; ?>/public/menus/delete/<?= $item->id_menu_item; ?>"><i class="la la-trash"></i> <?= lang('Core.delete'); ?></a>
                                         </li>
                                     <?php } ?>
                                     <li class="kt-nav__item">
-                                        <a class="kt-nav__link" href="/<?= CI_SITE_AREA; ?>/<?= user()->id_company; ?>/public/menus/edit/<?= $item->id_menu_item; ?>"><i class="la la-edit"></i><?= lang('Core.edit'); ?></a>
+                                        <a class="kt-nav__link" href="/<?= CI_SITE_AREA; ?>/public/menus/edit/<?= $item->id_menu_item; ?>"><i class="la la-edit"></i><?= lang('Core.edit'); ?></a>
                                     </li>
                                 </ul>
                             </div>

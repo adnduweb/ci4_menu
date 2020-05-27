@@ -32,6 +32,7 @@ class MenusModel extends Model
     {
         parent::__construct();
         $this->menu = $this->db->table('menus');
+        $this->page = $this->db->table('pages');
     }
 
     /* @Todo */
@@ -94,11 +95,46 @@ class MenusModel extends Model
 
     public function getAllMenuFront(int $id_menu_item, int $id_lang)
     {
-        $this->menu->select();
+        $this->menu->select($this->table . '.*, ' .  $this->tableLang . '.*');
         $this->menu->join($this->tableLang, $this->table . '.' . $this->primaryKey . ' = ' . $this->tableLang . '.menu_id');
-        $this->menu->where('id_menu_item= ' . $id_menu_item . ' AND id_lang = ' . $id_lang);
+        // $this->menu->join('pages', 'pages.id_page = ' . $this->table . '.id_item_module');
+        // $this->menu->join('pages_langs', 'pages.id_page = pages_langs.id_page');
+        //$this->menu->where('id_menu_item= ' . $id_menu_item . ' AND  ' . $this->tableLang . '.id_lang = ' . $id_lang . ' AND pages_langs.id_lang = ' . $id_lang);
+        $this->menu->where('id_menu_item= ' . $id_menu_item . ' AND  ' . $this->tableLang . '.id_lang = ' . $id_lang);
         $this->menu->orderBy('left ASC');
         $menuResult = $this->menu->get()->getResult();
+        $arrayId = [];
+        foreach ($menuResult as $result) {
+            $arrayId[$result->id] = $result;
+        }
+
+        if (!empty($menuResult)) {
+            $i = 0;
+            foreach ($menuResult as &$menu) {
+                $this->page->select('pages_langs.slug, pages_langs.id_page');
+                $this->page->join('pages_langs', 'pages.id_page = pages_langs.id_page');
+                $this->page->where('pages_langs.id_lang = ' . $id_lang . ' AND pages.id_page = ' . $menu->id_item_module);
+                $pagedetail = $this->page->get()->getRow();
+                if (!empty($pagedetail)) {
+                    if (!is_null($menu->id_module)) {
+                        if ($menu->id_parent != 0) {
+                            $menu->slug = $arrayId[$menu->id_parent]->slug . '/' . $pagedetail->slug;
+                            $menu->id_page = $pagedetail->id_page;
+                        } else {
+                            $menu->slug = $pagedetail->slug;
+                            $menu->id_page = $pagedetail->id_page;
+                        }
+                    } else {
+                        $menu->slug = $menu->slug;
+                    }
+                }
+                $i++;
+            }
+        }
+
+        //print_r($arrayId);
+        // print_r($menuResult);
+        // exit;
         //echo $this->menu->getCompiledSelect(); exit;
         return $menuResult;
     }
