@@ -75,7 +75,8 @@ class Menu extends Entity
                 $data = [
                     'menu_id' => $key,
                     'id_lang' => $k,
-                    'name'    => $v['name']
+                    'name'    => $v['name'],
+                    'slug'    => (!isset($v['slug'])) ? '' : $v['slug']
                 ];
                 // Create the new participant
                 $builder->insert($data);
@@ -83,7 +84,8 @@ class Menu extends Entity
                 $data = [
                     'menu_id' => $this->tableLang->menu_id,
                     'id_lang' => $this->tableLang->id_lang,
-                    'name'    => $v['name']
+                    'name'    => $v['name'],
+                    'slug'    => (!isset($v['slug'])) ? '' : $v['slug']
                 ];
                 //print_r($data);
                 $builder->set($data);

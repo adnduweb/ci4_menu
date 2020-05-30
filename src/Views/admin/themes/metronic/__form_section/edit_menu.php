@@ -9,7 +9,7 @@
         <?php if (is_null($form->id_module)) { ?>
             <div class="form-group">
                 <label for="addInputSlug"><?= lang('Core.slug'); ?></label>
-                <input type="text" name="slug" value="<?= $form->slug; ?>" class="form-control" id="editInputSlug" placeholder="<?= lang('Core.item-slug'); ?>">
+                <?= form_input_spread('slug', $form->_prepareLang(), 'id="slug" class="form-control lang"', 'text', true); ?>
             </div>
 
             <div class="form-group">

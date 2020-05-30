@@ -58,7 +58,9 @@ class AdminMenusController extends AdminController
 
 
         $this->setTag('title', lang('Core.menu'));
-        $this->data['menu'] = $this->tableModel->where('id_menu_item', $id_menu_item)->orderBy('left', 'ACS')->get()->getResult();
+        $this->data['menu'] = $this->tableModel->getMenuAdmin($id_menu_item);
+        // print_r($this->data['menu']);
+        // exit;
 
         //Get list module
         $modules = Service('Modules');
@@ -135,8 +137,9 @@ class AdminMenusController extends AdminController
             $menu->right        = $output['right'];
             $menu->id_parent    = (isset($output['parent_id'])) ? $output['parent_id'] : 0;
             //$menu->slug = ($output['slug'] == "#") ? "#" : strtolower(preg_replace('/[^a-zA-Z0-9\-]/', '', preg_replace('/\s+/', '-', $output['slug'])));
-            $menu->slug = $output['slug'];
+            //$menu->slug = $output['slug'];
             $menu->icon = null;
+
             if ($this->tableModel->save($menu) != false) {
                 if (isset($output['edit_form'])) {
                     $menuId = $output['id'];
@@ -147,12 +150,12 @@ class AdminMenusController extends AdminController
                 $this->tabs_langs = $output['lang'];
                 $menuItem = new Menu();
                 $menuItem->saveLang($this->tabs_langs, $menuId);
-                $this->data['menu'] = $this->tableModel->where('id_menu_item', $menu->id_menu_item)->orderBy('left', 'ACS')->get()->getResult();
+                $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->id_menu_item);
                 $this->data['menu_item'] = $this->tableModel->getMenusItems();
                 $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                 return $this->respond(['status' => true, 'type' => lang('Core.cool_success'), 'message' => lang('Core.saved_data'), 'html' => $html], 200);
             } else {
-                return $this->respond(['status' => false, 'message' => lang('Core.une errur est survenue') .  ' : ' . print_r($menu, true)], 200);
+                return $this->respond(['status' => false, 'message' => lang('Core.une erreur est survenue') .  ' : ' . print_r($menu, true)], 200);
             }
         }
     }
@@ -185,7 +188,7 @@ class AdminMenusController extends AdminController
                             $this->tabs_langs = $lang;
                             $menuItem = new Menu();
                             $menuItem->saveLang($this->tabs_langs, $menuId);
-                            $this->data['menu'] = $this->tableModel->where('id_menu_item', $menu->id_menu_item)->orderBy('left', 'ACS')->get()->getResult();
+                            $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->id_menu_item);
                             $this->data['menu_item'] = $this->tableModel->getMenusItems();
                             $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                             return $this->respond(['status' => true, 'type' => lang('Core.cool_success'), 'message' => lang('Core.saved_data'), 'html' => $html], 200);
@@ -224,7 +227,7 @@ class AdminMenusController extends AdminController
                     }
                 }
 
-                $this->data['menu'] = $this->tableModel->where('id_menu_item', $menu->id_menu_item)->orderBy('left', 'ACS')->get()->getResult();
+                $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->id_menu_item);
                 $this->data['menu_item'] = $this->tableModel->getMenusItems();
                 $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                 return $this->respond(['status' => true, 'type' => 'success', 'message' => lang('Js.your_selected_records_have_been_deleted'), 'html' => $html], 200);

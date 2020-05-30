@@ -24,7 +24,7 @@ if (!function_exists('afficher_menu_admin')) {
 
                 $html .= "<li class=\"dd-item " . $custom . " dd-item-active-$noeud->active\" data-method=\"$noeud->slug\" data-id=\"$noeud->id\" data-niveau=\"$niveau\" data-niveau_precedent=\"$niveau_precedent\" data-parent=\"$parent\">";
                 $html .= "<div class=\"dd-handle dd3-handle\"></div>";
-                $html .= "<div class=\"dd3-content\"><strong>" . $getNameLang . "</strong> " . $slug;
+                $html .= "<div class=\"dd3-content\"><strong>" . $getNameLang . "</strong> ";
                 $html .= '<div class="dropdown dropdown-inline dd3-action">
                                 <button type="button" class="btn btn-hover-danger btn-elevate-hover btn-icon btn-sm btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     ' . $custom . ' <i class="fa fa-arrow-alt-circle-down"></i>

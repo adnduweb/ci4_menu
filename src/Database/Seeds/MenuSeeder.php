@@ -34,14 +34,14 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
             'id_item_module' => null,
             'active'         => 1,
             'icon'           => '',
-            'slug'           => '/',
         ];
         $db->table('menus')->insert($rows);
 
         $rowsLang =  [
             'menu_id' => 1,
             'id_lang' => 1,
-            'name'    => 'Page d\'accueil'
+            'name'    => 'Page d\'accueil',
+            'slug'    => '/'
         ];
         $db->table('menus_langs')->insert($rowsLang);
 

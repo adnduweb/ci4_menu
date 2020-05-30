@@ -12,7 +12,7 @@
 
         <div class="form-group">
             <label for="addInputSlug"><?= lang('Core.slug'); ?> &nbsp;</label>
-            <input type="text" name="slug" class="form-control" id="addInputSlug" placeholder="<?= lang('Core.item-slug'); ?>" required>
+            <?= form_input_spread('slug', null, 'id="slug" class="form-control lang"', 'text', true); ?>
         </div>
 
         <div class="form-group">

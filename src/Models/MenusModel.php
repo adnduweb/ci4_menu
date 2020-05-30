@@ -20,11 +20,9 @@ class MenusModel extends Model
     protected $primaryKey = 'id';
     protected $returnType = Menu::class;
     protected $useSoftDeletes = false;
-    protected $allowedFields = ['id_menu_item', 'active', 'depth', 'left', 'right', 'id_parent', 'slug', 'id_module', 'id_item_module', 'icon'];
+    protected $allowedFields = ['id_menu_item', 'active', 'depth', 'left', 'right', 'id_parent', 'id_module', 'id_item_module', 'icon'];
     protected $useTimestamps = true;
-    protected $validationRules = [
-        'slug'            => 'required'
-    ];
+    protected $validationRules = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
 
@@ -35,12 +33,18 @@ class MenusModel extends Model
         $this->page = $this->db->table('pages');
     }
 
-    /* @Todo */
-    //Voir le module de relation @Tatter
-    public function tmpReset()
-    {
-    }
 
+    public function getMenuAdmin(int $id_menu_item)
+    {
+        $this->menu->select();
+        $this->menu->select('created_at as date_create_at');
+        $this->menu->join($this->tableLang, $this->table . '.' . $this->primaryKey . ' = ' . $this->tableLang . '.menu_id');
+        $this->menu->where(['id_menu_item' => $id_menu_item, 'id_lang' =>  1]);
+        $this->menu->orderBy('left', 'ACS');
+        $groupsRow = $this->menu->get()->getResult();
+        //echo $this->menu->getCompiledSelect(); exit;
+        return $groupsRow;
+    }
 
     public function getAllList(int $page, int $perpage, array $sort, array $query)
     {

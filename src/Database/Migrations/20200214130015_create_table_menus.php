@@ -35,7 +35,6 @@ class Migration_create_table_menus extends Migration
 			'id_item_module' => ['type' => 'INT', 'null' => TRUE],
 			'active'         => ['type' => 'INT', 'constraint' => 11, 'null' => true],
 			'icon'           => ['type' => 'TEXT', 'null' => true, 'null' => true],
-			'slug'           => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
 			'created_at'     => ['type' => 'DATETIME', 'null' => true],
 			'updated_at'     => ['type' => 'DATETIME', 'null' => true],
 			'deleted_at'     => ['type' => 'DATETIME', 'null' => true],
@@ -52,7 +51,8 @@ class Migration_create_table_menus extends Migration
 		$fields = [
 			'menu_id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
 			'id_lang'      => ['type' => 'INT', 'constraint' => 11],
-			'name'         => ['type' => 'VARCHAR', 'constraint' => 255]
+			'name'         => ['type' => 'VARCHAR', 'constraint' => 255],
+			'slug'         => ['type' => 'VARCHAR', 'constraint' => 255]
 		];
 
 		$this->forge->addField($fields);
