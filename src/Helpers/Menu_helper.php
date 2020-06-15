@@ -14,7 +14,6 @@ if (!function_exists('afficher_menu_admin')) {
 
             $menu = new Menu(['id' => $noeud->id]);
             $getNameLang = $menu->getNameLang(Service('Settings')->setting_id_lang);
-            // print_r($getNameLang); exit;
             if ($parent == $noeud->id_parent) {
                 if ($niveau_precedent < $niveau) {
                     $html .= "\n<ol data-id=\"$noeud->id_parent\" class=\"dd-list\">\n";
@@ -30,8 +29,8 @@ if (!function_exists('afficher_menu_admin')) {
                                     ' . $custom . ' <i class="fa fa-arrow-alt-circle-down"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right " x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-149px, -189px, 0px);">
-                                    <a  data-id="' . $noeud->id . '" class="dropdown-item edit" href="/' . CI_SITE_AREA . '/' . user()->id_company . '/settings-advanced/' . $table . '/edit/' . $noeud->id . '"><i class="kt-nav__link-icon flaticon2-contract"></i>' . lang('Core.edit') . '</a>
-                                    <a  data-id="' . $noeud->id . '" class="dropdown-item delete" href="/' . CI_SITE_AREA . '/' . user()->id_company . '/settings-advanced/' . $table . '/delete/' . $noeud->id . '"><i class="kt-nav__link-icon flaticon2-trash"></i>' . lang('Core.delete') . '</a>
+                                    <a  data-id="' . $noeud->id . '" class="dropdown-item edit" href="/' . CI_SITE_AREA . '/settings-advanced/' . $table . '/edit/' . $noeud->id . '"><i class="kt-nav__link-icon flaticon2-contract"></i>' . lang('Core.edit') . '</a>
+                                    <a  data-id="' . $noeud->id . '" class="dropdown-item delete" href="/' . CI_SITE_AREA . '/settings-advanced/' . $table . '/delete/' . $noeud->id . '"><i class="kt-nav__link-icon flaticon2-trash"></i>' . lang('Core.delete') . '</a>
                                 </div>
                             </div>';
                 $html .= "</div>";

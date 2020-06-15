@@ -30,7 +30,7 @@ class MenusModel extends Model
     {
         parent::__construct();
         $this->menu = $this->db->table('menus');
-        $this->page = $this->db->table('pages');
+        $this->page_table = $this->db->table('page');
     }
 
 
@@ -101,9 +101,6 @@ class MenusModel extends Model
     {
         $this->menu->select($this->table . '.*, ' .  $this->tableLang . '.*');
         $this->menu->join($this->tableLang, $this->table . '.' . $this->primaryKey . ' = ' . $this->tableLang . '.menu_id');
-        // $this->menu->join('pages', 'pages.id_page = ' . $this->table . '.id_item_module');
-        // $this->menu->join('pages_langs', 'pages.id_page = pages_langs.id_page');
-        //$this->menu->where('id_menu_item= ' . $id_menu_item . ' AND  ' . $this->tableLang . '.id_lang = ' . $id_lang . ' AND pages_langs.id_lang = ' . $id_lang);
         $this->menu->where('id_menu_item= ' . $id_menu_item . ' AND  ' . $this->tableLang . '.id_lang = ' . $id_lang);
         $this->menu->orderBy('left ASC');
         $menuResult = $this->menu->get()->getResult();
@@ -115,10 +112,10 @@ class MenusModel extends Model
         if (!empty($menuResult)) {
             $i = 0;
             foreach ($menuResult as &$menu) {
-                $this->page->select('pages_langs.slug, pages_langs.id_page');
-                $this->page->join('pages_langs', 'pages.id_page = pages_langs.id_page');
-                $this->page->where('pages_langs.id_lang = ' . $id_lang . ' AND pages.id_page = ' . $menu->id_item_module);
-                $pagedetail = $this->page->get()->getRow();
+                $this->page_table->select('page_lang.slug, page_lang.id_page');
+                $this->page_table->join('page_lang', 'page.id_page = page_lang.id_page');
+                $this->page_table->where('page_lang.id_lang = ' . $id_lang . ' AND page.id_page = ' . $menu->id_item_module);
+                $pagedetail = $this->page_table->get()->getRow();
                 if (!empty($pagedetail)) {
                     if (!is_null($menu->id_module)) {
                         if ($menu->id_parent != 0) {
@@ -135,11 +132,6 @@ class MenusModel extends Model
                 $i++;
             }
         }
-
-        //print_r($arrayId);
-        // print_r($menuResult);
-        // exit;
-        //echo $this->menu->getCompiledSelect(); exit;
         return $menuResult;
     }
 }
