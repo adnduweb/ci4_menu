@@ -7,9 +7,11 @@ use CodeIgniter\Entity;
 class Menu extends Entity
 {
     use \Tatter\Relations\Traits\EntityTrait;
+    use \App\Traits\BuilderEntityTrait;
     protected $table      = 'menus';
     protected $tableLang  = 'menus_langs';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_menu';
+    protected $primaryKeyLang = 'menu_id';
 
     protected $datamap = [];
     /**
@@ -22,19 +24,19 @@ class Menu extends Entity
      */
     protected $casts = [];
 
-    public function getNameLang(int $id_lang)
-    {
-        // print_r($this->setmenusLangs()); exit;
-        return $this->setmenusLangs()['menus_langs'][$id_lang]->name ?? null;
-    }
+    // public function getNameLang(int $id_lang)
+    // {
+    //     // print_r($this->setmenuLangs()); exit;
+    //     return $this->setmenuLangs()['menus_langs'][$id_lang]->name ?? null;
+    // }
 
     public function getSlug()
     {
-        // print_r($this->setmenusLangs()); exit;
+        // print_r($this->setmenuLangs()); exit;
         return $this->attributes['slug'] ?? null;
     }
 
-    public function setmenusLangs()
+    public function setmenuLangs()
     {
         if (!empty($this->menus_langs)) {
             // unset($this->attributes[$this->tableLang][0]);
@@ -53,9 +55,9 @@ class Menu extends Entity
     public function _prepareLang()
     {
         $lang = [];
-        if (!empty($this->id)) {
-            foreach ($this->menus_langs as $tabs_lang) {
-                $lang[$tabs_lang->id_lang] = $tabs_lang;
+        if (!empty($this->id_menu)) {
+            foreach ($this->menus_langs as $tabs_langs) {
+                $lang[$tabs_langs->id_lang] = $tabs_langs;
             }
         }
         return $lang;
@@ -69,27 +71,27 @@ class Menu extends Entity
         // print_r($data);
         // exit;
         foreach ($data as $k => $v) {
-            $this->tableLang =  $builder->where(['id_lang' => $k, 'menu_id' => $key])->get()->getRow();
+            $this->tableLang =  $builder->where(['id_lang' => $k, $this->primaryKeyLang => $key])->get()->getRow();
             // print_r($this->tableLang);
             if (empty($this->tableLang)) {
                 $data = [
-                    'menu_id' => $key,
-                    'id_lang' => $k,
-                    'name'    => $v['name'],
-                    'slug'    => (!isset($v['slug'])) ? '' : $v['slug']
+                    $this->primaryKeyLang => $key,
+                    'id_lang'             => $k,
+                    'name'                => $v['name'],
+                    'slug'                => (!isset($v['slug'])) ? '' : $v['slug']
                 ];
                 // Create the new participant
                 $builder->insert($data);
             } else {
                 $data = [
-                    'menu_id' => $this->tableLang->menu_id,
-                    'id_lang' => $this->tableLang->id_lang,
-                    'name'    => $v['name'],
-                    'slug'    => (!isset($v['slug'])) ? '' : $v['slug']
+                    $this->primaryKeyLang => $this->tableLang->{$this->primaryKeyLang},
+                    'id_lang'             => $this->tableLang->id_lang,
+                    'name'                => $v['name'],
+                    'slug'                => (!isset($v['slug'])) ? '' : $v['slug']
                 ];
                 //print_r($data);
                 $builder->set($data);
-                $builder->where(['menu_id' => $this->tableLang->menu_id, 'id_lang' => $this->tableLang->id_lang]);
+                $builder->where([$this->primaryKeyLang => $this->tableLang->{$this->primaryKeyLang}, 'id_lang' => $this->tableLang->id_lang]);
                 $builder->update();
             }
         }

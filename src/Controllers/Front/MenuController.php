@@ -3,7 +3,7 @@
 namespace Adnduweb\Ci4_page\Controllers\Front;
 
 use CodeIgniter\API\ResponseTrait;
-use Adnduweb\Ci4_page\Models\PagesModel;
+use Adnduweb\Ci4_page\Models\PageModel;
 
 class FrontPagesController extends \App\Controllers\Front\FrontController
 {
@@ -12,7 +12,7 @@ class FrontPagesController extends \App\Controllers\Front\FrontController
     public function __construct()
     {
         parent::__construct();
-        $this->tableModel  = new PagesModel();
+        $this->tableModel  = new PageModel();
     }
     public function index()
     {

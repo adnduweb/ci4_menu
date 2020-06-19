@@ -4,10 +4,10 @@ namespace Adnduweb\Ci4_menu\Entities;
 
 use CodeIgniter\Entity;
 
-class MenuItem extends Entity
+class MenuMain extends Entity
 {
     use \Tatter\Relations\Traits\EntityTrait;
-    protected $table      = 'menus_items';
+    protected $table      = 'menus_mains';
     protected $tableLang  = 'menus_langs';
     protected $primaryKey = 'id';
 
@@ -22,11 +22,11 @@ class MenuItem extends Entity
      */
     protected $casts = [];
 
-    public function getId()
+    public function getIdMenuMain()
     {
         return $this->{$this->primaryKey} ?? null;
     }
-    public function getName()
+    public function getBName()
     {
         return $this->attributes['name'] ?? null;
     }

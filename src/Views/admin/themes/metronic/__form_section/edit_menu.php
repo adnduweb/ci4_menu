@@ -13,13 +13,13 @@
             </div>
 
             <div class="form-group">
-                <label for="id_menu_item"><?= ucfirst(lang('Core.menu_item')); ?></label>
-                <select required name="id_menu_item" class="form-control selectpicker file kt-selectpicker" data-actions-box="true" title="<?= ucfirst(lang('Core.choose_one_of_the_following')); ?>" id="id_menu_item">
+                <label for="menu_main_id"><?= ucfirst(lang('Core.menu_item')); ?></label>
+                <select required name="menu_main_id" class="form-control selectpicker file kt-selectpicker" data-actions-box="true" title="<?= ucfirst(lang('Core.choose_one_of_the_following')); ?>" id="menu_main_id">
                     <?php foreach ($menu_items as $item) { ?>
-                        <?php if ($item->id_menu_item == $form->id_menu_item) { ?>
-                            <option selected value="<?= $item->id_menu_item; ?>"><?= $item->name; ?></option>
+                        <?php if ($item->id == $form->menu_main_id) { ?>
+                            <option selected value="<?= $item->id; ?>"><?= $item->name; ?></option>
                         <?php } else { ?>
-                            <option value="<?= $item->id_menu_item; ?>"><?= $item->name; ?></option>
+                            <option value="<?= $item->id; ?>"><?= $item->name; ?></option>
                         <?php } ?>
 
                     <?php } ?>
@@ -27,11 +27,11 @@
             </div>
         <?php } else { ?>
             <input type="hidden" name="slug" value="<?= $form->slug; ?>" />
-            <input type="hidden" name="id_menu_item" value="<?= $form->id_menu_item; ?>" />
+            <input type="hidden" name="menu_main_id" value="<?= $form->menu_main_id; ?>" />
         <?php } ?>
     </div>
 
-    <input type="hidden" name="id" value="<?= $form->id; ?>" />
+    <input type="hidden" name="id" value="<?= $form->id_menu; ?>" />
     <input type="hidden" name="depth" value="<?= $form->depth; ?>" />
     <input type="hidden" name="left" value="<?= $form->left; ?>" />
     <input type="hidden" name="right" value="<?= $form->right; ?>" />

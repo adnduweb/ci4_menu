@@ -11,20 +11,20 @@
                 <h3 class="kt-portlet__head-title">
                     <?php foreach ($menu_items as $item) { ?>
                         <div class="btn-group">
-                            <a href="/<?= CI_SITE_AREA; ?>/public/menus/<?= $item->id_menu_item; ?>" class=" btn btn-sm btn-brand">
+                            <a href="/<?= CI_SITE_AREA; ?>/public/menus/<?= $item->id; ?>" class=" btn btn-sm btn-brand">
                                 Menu : <?= $item->name; ?>
                             </a>
                             <button type="button" class="btn btn-sm btn-brand dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="kt-nav">
-                                    <?php if ($item->id_menu_item != '1') { ?>
+                                    <?php if ($item->id != '1') { ?>
                                         <li class="kt-nav__item">
-                                            <a class="kt-nav__link" href="/<?= CI_SITE_AREA; ?>/public/menus/delete/<?= $item->id_menu_item; ?>"><i class="la la-trash"></i> <?= lang('Core.delete'); ?></a>
+                                            <a class="kt-nav__link" href="/<?= CI_SITE_AREA; ?>/public/menus/delete/<?= $item->id; ?>"><i class="la la-trash"></i> <?= lang('Core.delete'); ?></a>
                                         </li>
                                     <?php } ?>
                                     <li class="kt-nav__item">
-                                        <a class="kt-nav__link" href="/<?= CI_SITE_AREA; ?>/public/menus/edit/<?= $item->id_menu_item; ?>"><i class="la la-edit"></i><?= lang('Core.edit'); ?></a>
+                                        <a class="kt-nav__link" href="/<?= CI_SITE_AREA; ?>/public/menus/edit/<?= $item->id; ?>"><i class="la la-edit"></i><?= lang('Core.edit'); ?></a>
                                     </li>
                                 </ul>
                             </div>
@@ -61,8 +61,8 @@
                                 <?php foreach ($modules as $k => $v) { ?>
                                     <?php foreach ($v->items as $module) { ?>
                                         <label class="kt-checkbox kt-checkbox--bold">
-                                            <input name="page-menu[<?= $v->id_module; ?>][<?= $module->getId(); ?>]" value="<?= base64_encode(serialize($module->getNameAllLang())); ?>" data-method="/" data-id="<?= $module->getId(); ?>" data-module="<?= $k; ?>" type="checkbox" kl_vkbd_parsed="true"> <?= ucfirst($module->getName()); ?>
-                                            <input type="hidden" name="id_page" value="<?= $menu_item->id_menu_item; ?>" />
+                                            <input name="page-menu[<?= $v->id_module; ?>][<?= $module->getIdPage(); ?>]" value="<?= base64_encode(serialize($module->getNameAllLang())); ?>" data-method="/" data-id="<?= $module->getIdPage(); ?>" data-module="<?= $k; ?>" type="checkbox" kl_vkbd_parsed="true"> <?= ucfirst($module->getBName()); ?>
+                                            <input type="hidden" name="id_page" value="<?= $menu_item->id; ?>" />
                                             <span></span>
                                         </label>
                                         <input type="hidden" name="type" value="<?= $k ?>" />
@@ -70,7 +70,7 @@
                                 <?php } ?>
                             </div>
                         </div>
-                        <input type="hidden" name="id_menu_item" value="<?= $menu_item->id_menu_item; ?>" />
+                        <input type="hidden" name="menu_main_id" value="<?= $menu_item->id; ?>" />
                         <input type="hidden" name="depth" value="0" />
                         <input type="hidden" name="left" value="0" />
                         <input type="hidden" name="right" value="0" />
@@ -128,8 +128,8 @@
                         }, {
                             type: "success",
                             placement: {
-                                from: 'bottom',
-                                align: 'center'
+                                from: 'top',
+                                align: 'right'
                             },
                         });
                     }
@@ -222,8 +222,8 @@
                         }, {
                             type: "success",
                             placement: {
-                                from: 'bottom',
-                                align: 'center'
+                                from: 'top',
+                                align: 'right'
                             },
                         });
                     }
@@ -240,10 +240,10 @@
         var saveToMenu = function(action) {
             var newName = $("#name").val();
             var newSlug = $("#addInputSlug").val();
-            var id_menu_item = $("#id_menu_item").val();
+            var id = $("#id").val();
             var newId = 'new-' + newIdCount;
 
-            // if (!newName || !newSlug || $.isNumeric(id_menu_item) == false) {
+            // if (!newName || !newSlug || $.isNumeric(id) == false) {
             //     return false;
 
             // }
@@ -288,8 +288,8 @@
                         }, {
                             type: "success",
                             placement: {
-                                from: 'bottom',
-                                align: 'center'
+                                from: 'top',
+                                align: 'right'
                             },
                         });
                     }
@@ -391,8 +391,8 @@
                                 }, {
                                     type: result.type,
                                     placement: {
-                                        from: 'bottom',
-                                        align: 'center'
+                                        from: 'top',
+                                        align: 'right'
                                     },
                                 });
                             }
@@ -405,8 +405,8 @@
                     }, {
                         type: 'info',
                         placement: {
-                            from: 'bottom',
-                            align: 'center'
+                            from: 'top',
+                            align: 'right'
                         },
                     });
                 }

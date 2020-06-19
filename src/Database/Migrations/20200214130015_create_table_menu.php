@@ -4,28 +4,28 @@ namespace Adnduweb\Ci4_menu\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Migration_create_table_menus extends Migration
+class Migration_create_table_menu extends Migration
 {
 	public function up()
 	{
 
 		$fields = [
-			'id_menu_item' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-			'name'         => ['type' => 'VARCHAR', 'constraint' => 255],
-			'handle'       => ['type' => 'VARCHAR', 'constraint' => 255],
-			'created_at'   => ['type' => 'DATETIME', 'null' => true],
-			'updated_at'   => ['type' => 'DATETIME', 'null' => true],
+			'id'         => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
+			'name'       => ['type' => 'VARCHAR', 'constraint' => 255],
+			'handle'     => ['type' => 'VARCHAR', 'constraint' => 255],
+			'created_at' => ['type' => 'DATETIME', 'null' => true],
+			'updated_at' => ['type' => 'DATETIME', 'null' => true],
 		];
 
 		$this->forge->addField($fields);
-		$this->forge->addKey('id_menu_item', true);
+		$this->forge->addKey('id', true);
 		$this->forge->addKey('created_at');
 		$this->forge->addKey('updated_at');
-		$this->forge->createTable('menus_items');
+		$this->forge->createTable('menus_mains');
 
 		$fields = [
-			'id'             => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-			'id_menu_item'   => ['type' => 'INT', 'constraint' => 11],
+			'id_menu'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
+			'menu_main_id'   =>  ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
 			'id_parent'      => ['type' => 'INT', 'constraint' => 11],
 			'depth'          => ['type' => 'INT', 'constraint' => 11],
 			'left'           => ['type' => 'INT', 'constraint' => 11],
@@ -41,25 +41,23 @@ class Migration_create_table_menus extends Migration
 		];
 
 		$this->forge->addField($fields);
-		$this->forge->addKey('id', true);
-		$this->forge->addKey('created_at');
-		$this->forge->addKey('updated_at');
-		$this->forge->addKey('deleted_at');
+		$this->forge->addKey('id_menu', true);
+		$this->forge->addForeignKey('menu_main_id', 'menus_mains', 'id', false, 'CASCADE');
 		$this->forge->createTable('menus');
 
 
 		$fields = [
-			'menu_id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
+			'id_menu_lang' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
+			'menu_id'      => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
 			'id_lang'      => ['type' => 'INT', 'constraint' => 11],
 			'name'         => ['type' => 'VARCHAR', 'constraint' => 255],
 			'slug'         => ['type' => 'VARCHAR', 'constraint' => 255]
 		];
 
 		$this->forge->addField($fields);
-		// $this->forge->addKey(['id_item', 'id_lang'], false, true);
-		$this->forge->addKey('id_item');
+		$this->forge->addKey('id_menu_lang', true);
 		$this->forge->addKey('id_lang');
-		$this->forge->addForeignKey('menu_id', 'menus', 'id', false, 'CASCADE');
+		$this->forge->addForeignKey('menu_id', 'menus', 'id_menu', false, 'CASCADE');
 		$this->forge->createTable('menus_langs', true);
 	}
 
@@ -69,6 +67,6 @@ class Migration_create_table_menus extends Migration
 	{
 		$this->forge->dropTable('menus');
 		$this->forge->dropTable('menus_langs');
-		$this->forge->dropTable('menus_items');
+		$this->forge->dropTable('menus_mains');
 	}
 }

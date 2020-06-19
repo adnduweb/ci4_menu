@@ -14,4 +14,4 @@
     </div>
 </div>
 
-<?php if (!empty($form->id_menu_item)) { ?> <?= form_hidden('id_menu_item', $form->id_menu_item); ?> <?php } ?>
+<?php if (!empty($form->id)) { ?> <?= form_hidden('id', $form->id); ?> <?php } ?>

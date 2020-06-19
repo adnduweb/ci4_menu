@@ -2,9 +2,9 @@
 
 namespace Adnduweb\Ci4_menu\Database\Seeds;
 
-use Adnduweb\Ci4_menu\Models\MenusModel;
+use Adnduweb\Ci4_menu\Models\MenuModel;
 
-class Menuseeder extends \CodeIgniter\Database\Seeder
+class MenuSeeder extends \CodeIgniter\Database\Seeder
 {
     public function run()
     {
@@ -13,18 +13,18 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
 
         //Menu
         $rowsItem = [
-            'id_menu_item' => 1,
-            'name'         => 'main menu',
-            'handle'       => 'main_menu',
-            'created_at'   => date('Y-m-d H:i:s'),
+            'id'         => 1,
+            'name'       => 'main menu',
+            'handle'     => 'main_menu',
+            'created_at' => date('Y-m-d H:i:s'),
         ];
 
-        $db->table('menus_items')->insert($rowsItem);
-        //$id_menu_item = $db->insertID();
+        $db->table('menus_mains')->insert($rowsItem);
+        //$menu_main_id = $db->insertID();
 
         $rows = [
-            'id'             => 1,
-            'id_menu_item'   => 1,
+            'id_menu'        => 1,
+            'menu_main_id'   => 1,
             'id_parent'      => 0,
             'depth'          => 1,
             'left'           => 2,
@@ -66,11 +66,11 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
         $rowsTabsLangs = [
             [
                 'id_lang'         => 1,
-                'name'             => 'menus',
+                'name'             => 'menu',
             ],
             [
                 'id_lang'         => 2,
-                'name'             => 'menus',
+                'name'             => 'menu',
             ],
         ];
         $db = \Config\Database::connect();
@@ -95,31 +95,31 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
          *
          * Gestion des permissions
          */
-        $rowsPermissionsMenus = [
+        $rowsPermissionsMenu = [
             [
                 'name'              => 'Menus::views',
-                'description'       => 'Voir les Menus',
+                'description'       => 'Voir les Menu',
                 'is_natif'          => '0',
             ],
             [
                 'name'              => 'Menus::create',
-                'description'       => 'Créer des Menus',
+                'description'       => 'Créer des Menu',
                 'is_natif'          => '0',
             ],
             [
                 'name'              => 'Menus::edit',
-                'description'       => 'Modifier les Menus',
+                'description'       => 'Modifier les Menu',
                 'is_natif'          => '0',
             ],
             [
                 'name'              => 'Menus::delete',
-                'description'       => 'Supprimer des Menus',
+                'description'       => 'Supprimer des Menu',
                 'is_natif'          => '0',
             ]
         ];
 
         // On insére le role par default au user
-        foreach ($rowsPermissionsMenus as $row) {
+        foreach ($rowsPermissionsMenu as $row) {
             $tabRow =  $db->table('auth_permissions')->where(['name' => $row['name']])->get()->getRow();
             if (empty($tabRow)) {
                 // No langue - add the row
@@ -129,7 +129,7 @@ class Menuseeder extends \CodeIgniter\Database\Seeder
 
         //Gestion des module
         $rowsModulePages = [
-            'name'       => 'menus',
+            'name'       => 'menu',
             'namespace'  => 'Adnduweb\Ci4_menu',
             'active'     => 1,
             'version'    => '1.1.3',

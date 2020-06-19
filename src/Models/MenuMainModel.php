@@ -3,18 +3,18 @@
 namespace Adnduweb\Ci4_menu\Models;
 
 use CodeIgniter\Model;
-use Adnduweb\Ci4_menu\Entities\MenuItem;
+use Adnduweb\Ci4_menu\Entities\MenuMain;
 
-class MenusItemsModel extends Model
+class MenuMainModel extends Model
 {
     use \Adnduweb\Ci4_logs\Traits\AuditsTrait;
     protected $afterInsert = ['auditInsert'];
     protected $afterUpdate = ['auditUpdate'];
     protected $afterDelete = ['auditDelete'];
 
-    protected $table = 'menus_items';
-    protected $primaryKey = 'id_menu_item';
-    protected $returnType = MenuItem::class;
+    protected $table = 'menus_mains';
+    protected $primaryKey = 'id';
+    protected $returnType = MenuMain::class;
     protected $useSoftDeletes = false;
     protected $allowedFields = ['name', 'handle'];
     protected $useTimestamps = true;
@@ -27,12 +27,6 @@ class MenusItemsModel extends Model
     public function __construct()
     {
         parent::__construct();
-        $this->menu = $this->db->table('menus_items');
-    }
-
-    /* @Todo */
-    //Voir le module de relation @Tatter
-    public function tmpReset()
-    {
+        $this->menus_mains = $this->db->table('menus_mains');
     }
 }

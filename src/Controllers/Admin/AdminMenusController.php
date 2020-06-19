@@ -8,11 +8,11 @@ use CodeIgniter\HTTP\RedirectResponse;
 use App\Libraries\AssetsBO;
 use App\Libraries\Tools;
 use App\Entities\Module;
-use App\Models\ModulesModel;
+use App\Models\ModuleModel;
 use Adnduweb\Ci4_menu\Entities\Menu;
-use Adnduweb\Ci4_menu\Entities\MenuItem;
-use Adnduweb\Ci4_menu\Models\MenusModel;
-use Adnduweb\Ci4_menu\Models\MenusItemsModel;
+use Adnduweb\Ci4_menu\Entities\MenuMain;
+use Adnduweb\Ci4_menu\Models\MenuModel;
+use Adnduweb\Ci4_menu\Models\MenuMainModel;
 
 class AdminMenusController extends AdminController
 {
@@ -37,9 +37,9 @@ class AdminMenusController extends AdminController
         helper('Menu');
         $this->controller_type = 'adminmenus';
         $this->module = "menus";
-        $this->tableModel  = new MenusModel();
-        $this->moduleModel  = new ModulesModel();
-        $this->menuItemModel  = new MenusItemsModel();
+        $this->tableModel  = new MenuModel();
+        $this->moduleModel  = new ModuleModel();
+        $this->menuMainModel  = new MenuMainModel();
     }
 
     public function renderView($id = null)
@@ -49,8 +49,8 @@ class AdminMenusController extends AdminController
             return $parent;
         }
         $this->data['multilangue_list'] = $this->multilangue_list;
-        $id_menu_item = (int) $id;
-        $this->data['menu_item'] = $this->tableModel->getMenusItem($id_menu_item);
+        $menu_main_id = (int) $id;
+        $this->data['menu_item'] = $this->tableModel->getMenuMain($menu_main_id);
         if (empty($this->data['menu_item'])) {
             Tools::set_message('danger', lang('Core.item_no_exist'), lang('Core.warning_error'));
             return redirect()->to('/' . CI_SITE_AREA . $this->pathcontroller . '/1');
@@ -58,7 +58,7 @@ class AdminMenusController extends AdminController
 
 
         $this->setTag('title', lang('Core.menu'));
-        $this->data['menu'] = $this->tableModel->getMenuAdmin($id_menu_item);
+        $this->data['menu'] = $this->tableModel->getMenuAdmin($menu_main_id);
         // print_r($this->data['menu']);
         // exit;
 
@@ -77,7 +77,7 @@ class AdminMenusController extends AdminController
             }
         }
         $this->data['modules'] = $this->instances;
-        $this->data['menu_items'] = $this->tableModel->getMenusItems();
+        $this->data['menu_items'] = $this->tableModel->getMenusMains();
 
 
         return view($this->get_current_theme_view('index', 'Adnduweb/Ci4_menu'), $this->data);
@@ -109,7 +109,7 @@ class AdminMenusController extends AdminController
                     }
                 }
                 if (count($error) > 0) {
-                    return $this->respond(['status' => false, 'message' => lang('Core.une errur est survenue') .  ' : ' . print_r($error, true)], 200);
+                    return $this->respond(['status' => false, 'message' => lang('Core.une erreur est survenue') .  ' : ' . print_r($error, true)], 200);
                 } else {
                     return $this->respond(['status' => true, 'type' => lang('Core.cool_success'), 'message' => lang('Core.saved_data')], 200);
                 }
@@ -129,13 +129,13 @@ class AdminMenusController extends AdminController
             } else {
                 $menu               = new Menu();
             }
-            $menu->id_menu_item = $output['id_menu_item'];
+            $menu->menu_main_id = $output['menu_main_id'];
             $menu->active       = 1;
             $menu->position     = 1;
-            $menu->depth        = $output['depth'];
-            $menu->left         = $output['left'];
-            $menu->right        = $output['right'];
-            $menu->id_parent    = (isset($output['parent_id'])) ? $output['parent_id'] : 0;
+            // $menu->depth        = $output['depth'];
+            // $menu->left         = $output['left'];
+            // $menu->right        = $output['right'];
+            // $menu->id_parent    = (isset($output['parent_id'])) ? $output['parent_id'] : 0;
             //$menu->slug = ($output['slug'] == "#") ? "#" : strtolower(preg_replace('/[^a-zA-Z0-9\-]/', '', preg_replace('/\s+/', '-', $output['slug'])));
             //$menu->slug = $output['slug'];
             $menu->icon = null;
@@ -147,11 +147,11 @@ class AdminMenusController extends AdminController
                     $menuId = $this->tableModel->insertID();
                 }
 
-                $this->tabs_langs = $output['lang'];
-                $menuItem = new Menu();
-                $menuItem->saveLang($this->tabs_langs, $menuId);
-                $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->id_menu_item);
-                $this->data['menu_item'] = $this->tableModel->getMenusItems();
+                $this->tabs_langss = $output['lang'];
+                $menuMain = new Menu();
+                $menuMain->saveLang($this->tabs_langss, $menuId);
+                $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->menu_main_id);
+                $this->data['menu_item'] = $this->tableModel->getMenusMains();
                 $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                 return $this->respond(['status' => true, 'type' => lang('Core.cool_success'), 'message' => lang('Core.saved_data'), 'html' => $html], 200);
             } else {
@@ -171,7 +171,7 @@ class AdminMenusController extends AdminController
                     foreach ($v as $id_item_module => $lang) {
                         //$page =  Adnduweb\Ci4_page\Entities\Page();
                         $menu                 = new Menu();
-                        $menu->id_menu_item   = $output['id_menu_item'];
+                        $menu->menu_main_id   = $output['menu_main_id'];
                         $menu->active         = 1;
                         $menu->position       = 1;
                         $menu->depth          = $output['depth'];
@@ -185,11 +185,11 @@ class AdminMenusController extends AdminController
                             $menuId = $this->tableModel->insertID();
                             $base64_decode = base64_decode($lang);
                             $lang = unserialize($base64_decode);
-                            $this->tabs_langs = $lang;
-                            $menuItem = new Menu();
-                            $menuItem->saveLang($this->tabs_langs, $menuId);
-                            $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->id_menu_item);
-                            $this->data['menu_item'] = $this->tableModel->getMenusItems();
+                            $this->tabs_langss = $lang;
+                            $menuMain = new Menu();
+                            $menuMain->saveLang($this->tabs_langss, $menuId);
+                            $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->menu_main_id);
+                            $this->data['menu_item'] = $this->tableModel->getMenusMains();
                             $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                             return $this->respond(['status' => true, 'type' => lang('Core.cool_success'), 'message' => lang('Core.saved_data'), 'html' => $html], 200);
                         } else {
@@ -205,7 +205,7 @@ class AdminMenusController extends AdminController
     {
         if ($value = $this->request->getPost('value')) {
             $this->data['form'] = $this->tableModel->find($value);
-            $this->data['menu_items'] = $this->tableModel->getMenusItems();
+            $this->data['menu_items'] = $this->tableModel->getMenusMains();
             $html = view($this->get_current_theme_view('__form_section/edit_menu', 'Adnduweb/Ci4_menu'), $this->data);
             return $this->respond(['status' => true, 'html' => $html], 200);
         }
@@ -223,12 +223,12 @@ class AdminMenusController extends AdminController
                 $list = $this->tableModel->where('id_parent', $menu->id_parent)->get()->getResult();
                 if (!empty($list)) {
                     foreach ($list as $l) {
-                        $this->tableModel->set('id_parent', '0')->where('id_parent', $l->id)->update();
+                        $this->tableModel->set('id_parent', '0')->where('id_parent', $l->id_menu)->update();
                     }
                 }
 
-                $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->id_menu_item);
-                $this->data['menu_item'] = $this->tableModel->getMenusItems();
+                $this->data['menu'] = $this->tableModel->getMenuAdmin($menu->menu_main_id);
+                $this->data['menu_item'] = $this->tableModel->getMenusMains();
                 $html = view($this->get_current_theme_view('__form_section/get_menu', 'Adnduweb/Ci4_menu'), $this->data);
                 return $this->respond(['status' => true, 'type' => 'success', 'message' => lang('Js.your_selected_records_have_been_deleted'), 'html' => $html], 200);
             } else {
@@ -251,11 +251,11 @@ class AdminMenusController extends AdminController
         if (is_null($id)) {
             $this->data['action'] = 'add';
             $this->data['add_title']  = lang('Core.add_' . $this->item);
-            $this->data['form'] = new MenuItem($this->request->getPost());
+            $this->data['form'] = new MenuMain($this->request->getPost());
         } else {
             $this->data['action'] = 'edit';
             $this->data['edit_title'] = lang('Core.edit_' . $this->item);
-            $this->data['form'] = $this->tableModel->getMenusItem($id);
+            $this->data['form'] = $this->tableModel->getMenuMain($id);
             $this->data['title_detail'] = $this->data['form']->name;
         }
         return view($this->get_current_theme_view('form', 'Adnduweb/Ci4_menu'), $this->data);
@@ -264,7 +264,7 @@ class AdminMenusController extends AdminController
     public function postProcessEdit($param)
     {
         // validate
-        $menu = new MenusItemsModel();
+        $menu = new MenuMainModel();
         $rules = [
             'name' => 'required',
         ];
@@ -274,7 +274,7 @@ class AdminMenusController extends AdminController
         }
 
         // Try to create the user
-        $menuBase = new MenuItem($this->request->getPost());
+        $menuBase = new MenuMain($this->request->getPost());
         $menuBase->handle = strtolower(preg_replace('/[^a-zA-Z0-9\-]/', '', preg_replace('/\s+/', '-', $menuBase->name)));
 
         if (!$menu->save($menuBase)) {
@@ -288,7 +288,7 @@ class AdminMenusController extends AdminController
             'url'                   => '/' . env('CI_SITE_AREA') . '/public/menus',
             'action'                => 'edit',
             'submithandler'         => $this->request->getPost('submithandler'),
-            'id'                    => $menuBase->id_menu_item,
+            'id'                    => $menuBase->id,
         ];
         $this->redirectAfterForm($redirectAfterForm);
     }
@@ -296,7 +296,7 @@ class AdminMenusController extends AdminController
     public function postProcessAdd($param)
     {
         // validate
-        $menu = new MenusItemsModel();
+        $menu = new MenuMainModel();
         $rules = [
             'name' => 'required',
         ];
@@ -306,14 +306,14 @@ class AdminMenusController extends AdminController
         }
 
         // Try to create the user
-        $menuBase = new MenuItem($this->request->getPost());
+        $menuBase = new MenuMain($this->request->getPost());
         $menuBase->handle = strtolower(preg_replace('/[^a-zA-Z0-9\-]/', '', preg_replace('/\s+/', '-', $menuBase->name)));
 
         if (!$menu->save($menuBase)) {
             Tools::set_message('danger', $menu->errors(), lang('Core.warning_error'));
             return redirect()->back()->withInput();
         }
-        $id_menu_item = $menu->insertID();
+        $menu_main_id = $menu->insertID();
 
         // Success!
         Tools::set_message('success', lang('Core.save_data'), lang('Core.cool_success'));
@@ -321,17 +321,17 @@ class AdminMenusController extends AdminController
             'url'                   => '/' . env('CI_SITE_AREA') . '/public/menus',
             'action'                => 'add',
             'submithandler'         => $this->request->getPost('submithandler'),
-            'id'                    => $id_menu_item,
+            'id'                    => $menu_main_id,
         ];
         $this->redirectAfterForm($redirectAfterForm);
     }
 
     // Delete
-    public function delete($id_menu_item): RedirectResponse
+    public function delete($menu_main_id): RedirectResponse
     {
         // (Soft) delete
-        $this->menuItemModel->delete($id_menu_item);
-        $this->tableModel->deleteItem($id_menu_item);
+        $this->menuMainModel->delete($menu_main_id);
+        $this->tableModel->deleteItem($menu_main_id);
 
         Tools::set_message('success', lang('Core.delete_data'), lang('Core.cool_success'));
         return redirect()->to('/' . CI_SITE_AREA . $this->pathcontroller . '/1');
