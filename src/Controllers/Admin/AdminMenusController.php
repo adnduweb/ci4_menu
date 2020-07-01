@@ -49,6 +49,8 @@ class AdminMenusController extends AdminController
             return $parent;
         }
         $this->data['multilangue_list'] = $this->multilangue_list;
+        $this->data['fakedata'] = $this->fake;
+        $this->data['changeCategorie'] = $this->changeCategorie;
         $menu_main_id = (int) $id;
         $this->data['menu_item'] = $this->tableModel->getMenuMain($menu_main_id);
         if (empty($this->data['menu_item'])) {

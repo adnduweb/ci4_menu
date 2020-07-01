@@ -54,10 +54,10 @@ class MenuModel extends Model
         $this->menus->select('created_at as date_create_at');
         $this->menus->join($this->tableLang, $this->table . '.' . $this->primaryKey . ' = ' . $this->tableLang . '.menu_id_menu');
         if (isset($query['generalSearch']) && !empty($query['generalSearch'])) {
-            $this->menus->where('deleted_at IS NULL AND (name LIKE "%' . $query['generalSearch'] . '%" OR login_destination LIKE "%' . $query['generalSearch'] . '%") AND id_lang = ' . service('settings')->setting_id_lang);
+            $this->menus->where('deleted_at IS NULL AND (name LIKE "%' . $query['generalSearch'] . '%" OR login_destination LIKE "%' . $query['generalSearch'] . '%") AND id_lang = ' . service('switchlanguage')->getIdLocale());
             $this->menus->limit(0, $page);
         } else {
-            $this->menus->where('deleted_at IS NULL AND id_lang = ' . service('settings')->setting_id_lang);
+            $this->menus->where('deleted_at IS NULL AND id_lang = ' . service('switchlanguage')->getIdLocale());
             $page = ($page == '1') ? '0' : (($page - 1) * $perpage);
             $this->menus->limit($perpage, $page);
         }
@@ -72,9 +72,9 @@ class MenuModel extends Model
         $this->menus->select($this->table . '.' . $this->primaryKey);
         $this->menus->join($this->tableLang, $this->table . '.' . $this->primaryKey . ' = ' . $this->tableLang . '.menu_id_menu');
         if (isset($query['generalSearch']) && !empty($query['generalSearch'])) {
-            $this->menus->where('deleted_at IS NULL AND (name LIKE "%' . $query['generalSearch'] . '%" OR login_destination LIKE "%' . $query['generalSearch'] . '%") AND id_lang = ' . service('settings')->setting_id_lang);
+            $this->menus->where('deleted_at IS NULL AND (name LIKE "%' . $query['generalSearch'] . '%" OR login_destination LIKE "%' . $query['generalSearch'] . '%") AND id_lang = ' . service('switchlanguage')->getIdLocale());
         } else {
-            $this->menus->where('deleted_at IS NULL AND id_lang = ' . service('settings')->setting_id_lang);
+            $this->menus->where('deleted_at IS NULL AND id_lang = ' . service('switchlanguage')->getIdLocale());
         }
 
         $this->menus->orderBy($sort['field'] . ' ' . $sort['sort']);
@@ -121,7 +121,8 @@ class MenuModel extends Model
                 if (!empty($pagedetail)) {
                     if (!is_null($menu->id_module)) {
                         if ($menu->id_parent != 0) {
-                            $menu->slug = $arrayId[$menu->id_parent]->slug . '/' . $pagedetail->slug;
+                            $slugParent  = ($arrayId[$menu->id_parent]->slug != "#") ? $arrayId[$menu->id_parent]->slug : '';
+                            $menu->slug = $slugParent . '/' . $pagedetail->slug;
                             $menu->id = $pagedetail->page_id;
                         } else {
                             $menu->slug = $pagedetail->slug;

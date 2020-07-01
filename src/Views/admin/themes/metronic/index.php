@@ -61,7 +61,7 @@
                                 <?php foreach ($modules as $k => $v) { ?>
                                     <?php foreach ($v->items as $module) { ?>
                                         <label class="kt-checkbox kt-checkbox--bold">
-                                            <input name="page-menu[<?= $v->id_module; ?>][<?= $module->getIdPage(); ?>]" value="<?= base64_encode(serialize($module->getNameAllLang())); ?>" data-method="/" data-id="<?= $module->getIdPage(); ?>" data-module="<?= $k; ?>" type="checkbox" kl_vkbd_parsed="true"> <?= ucfirst($module->getBName()); ?>
+                                            <input name="page-menu[<?= $v->id_module; ?>][<?= $module->getIdItem(); ?>]" value="<?= base64_encode(serialize($module->getNameAllLang())); ?>" data-method="/" data-id="<?= $module->getIdItem(); ?>" data-module="<?= $k; ?>" type="checkbox" kl_vkbd_parsed="true"> <?= ucfirst($module->getBName()); ?>
                                             <input type="hidden" name="id_page" value="<?= $menu_item->id; ?>" />
                                             <span></span>
                                         </label>
