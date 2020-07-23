@@ -24,11 +24,6 @@ class Menu extends Entity
      */
     protected $casts = [];
 
-    // public function getNameLang(int $id_lang)
-    // {
-    //     // print_r($this->setmenuLangs()); exit;
-    //     return $this->setmenuLangs()['menus_langs'][$id_lang]->name ?? null;
-    // }
 
     public function getSlug()
     {

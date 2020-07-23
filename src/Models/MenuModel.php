@@ -20,6 +20,7 @@ class MenuModel extends Model
     protected $primaryKey         = 'id_menu';
     protected $primaryKeyLang     = 'menu_id';
     protected $returnType         = Menu::class;
+    protected $localizeFile       = 'Adnduweb\Ci4_menu\Models\MenuModel';
     protected $useSoftDeletes     = false;
     protected $allowedFields      = ['menu_main_id', 'active', 'depth', 'left', 'right', 'id_parent', 'id_module', 'id_item_module', 'icon'];
     protected $useTimestamps      = true;

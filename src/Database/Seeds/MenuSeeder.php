@@ -48,18 +48,17 @@ class MenuSeeder extends \CodeIgniter\Database\Seeder
 
         $rowsTabs = [
             [
-                'id_parent'         => 17,
-                'depth'             => 2,
-                'left'              => 33,
-                'right'             => 34,
-                'position'          => 1,
-                'section'           => 0,
-                'module'            => 'Adnduweb\Ci4_menu',
-                'class_name'        => 'AdminMenus',
-                'active'            =>  1,
-                'icon'              => '',
-                'slug'             => 'menus/1',
-                'name_controller'       => ''
+                'id_parent'  => 17,
+                'depth'      => 2,
+                'left'       => 33,
+                'right'      => 34,
+                'position'   => 1,
+                'section'    => 0,
+                'namespace'  => 'Adnduweb\Ci4_menu',
+                'class_name' => 'menu',
+                'active'     => 1,
+                'icon'       => '',
+                'slug'       => 'menus/1',
             ],
         ];
 
@@ -75,7 +74,7 @@ class MenuSeeder extends \CodeIgniter\Database\Seeder
         ];
         $db = \Config\Database::connect();
         foreach ($rowsTabs as $row) {
-            $tab = $db->table('tabs')->where('class_name', $row['class_name'])->get()->getRow();
+            $tab = $db->table('tabs')->where('class_name', $row['class_name'])->where('namespace', $row['namespace'])->get()->getRow();
             //print_r($tab); exit;
             if (empty($tab)) {
                 // No setting - add the row
@@ -97,22 +96,22 @@ class MenuSeeder extends \CodeIgniter\Database\Seeder
          */
         $rowsPermissionsMenu = [
             [
-                'name'              => 'Menus::views',
+                'name'              => 'Menu::view',
                 'description'       => 'Voir les Menu',
                 'is_natif'          => '0',
             ],
             [
-                'name'              => 'Menus::create',
+                'name'              => 'Menu::create',
                 'description'       => 'Créer des Menu',
                 'is_natif'          => '0',
             ],
             [
-                'name'              => 'Menus::edit',
+                'name'              => 'Menu::edit',
                 'description'       => 'Modifier les Menu',
                 'is_natif'          => '0',
             ],
             [
-                'name'              => 'Menus::delete',
+                'name'              => 'Menu::delete',
                 'description'       => 'Supprimer des Menu',
                 'is_natif'          => '0',
             ]

@@ -12,12 +12,13 @@ class MenuMainModel extends Model
     protected $afterUpdate = ['auditUpdate'];
     protected $afterDelete = ['auditDelete'];
 
-    protected $table = 'menus_mains';
-    protected $primaryKey = 'id';
-    protected $returnType = MenuMain::class;
-    protected $useSoftDeletes = false;
-    protected $allowedFields = ['name', 'handle'];
-    protected $useTimestamps = true;
+    protected $table           = 'menus_mains';
+    protected $primaryKey      = 'id';
+    protected $returnType      = MenuMain::class;
+    protected $localizeFile    = 'Adnduweb\Ci4_menu\Models\MenuMainModel';
+    protected $useSoftDeletes  = false;
+    protected $allowedFields   = ['name', 'handle'];
+    protected $useTimestamps   = true;
     protected $validationRules = [
         'name'            => 'required'
     ];

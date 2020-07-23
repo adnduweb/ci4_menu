@@ -53,20 +53,18 @@
                 <div class="col-xl-6 col-lg-6 order-lg-3 order-xl-1 kt-section">
                     <h2 style="margin-bottom:30px;">Liste des pages disponible</h2>
                     <?php
-                    // print_r($modules);
-                    if (!empty($modules)) { ?>
+                     //print_r($modules['Adnduweb\Ci4_page']);exit;
+                    if (!empty($modules['Adnduweb\Ci4_page'])) { ?>
                         <?= form_open('', ['id' => 'menu-add-module', 'class' => 'kt-form', 'novalidate' => false, 'style' => 'margin-top:30px;']); ?>
                         <div class="kt-section__content kt-section__content--solid" id="page-tabs">
                             <div class="kt-checkbox-list">
-                                <?php foreach ($modules as $k => $v) { ?>
-                                    <?php foreach ($v->items as $module) { ?>
+                                <?php foreach ($modules['Adnduweb\Ci4_page']->items as $module) { ?>
                                         <label class="kt-checkbox kt-checkbox--bold">
-                                            <input name="page-menu[<?= $v->id_module; ?>][<?= $module->getIdItem(); ?>]" value="<?= base64_encode(serialize($module->getNameAllLang())); ?>" data-method="/" data-id="<?= $module->getIdItem(); ?>" data-module="<?= $k; ?>" type="checkbox" kl_vkbd_parsed="true"> <?= ucfirst($module->getBName()); ?>
+                                            <input name="page-menu[<?= $modules['Adnduweb\Ci4_page']->id_module; ?>][<?= $module->getIdItem(); ?>]" value="<?= base64_encode(serialize($module->getNameAllLang())); ?>" data-method="/" data-id="<?= $module->getIdItem(); ?>" data-module="Adnduweb\Ci4_page" type="checkbox" kl_vkbd_parsed="true"> <?= ucfirst($module->getBName()); ?>
                                             <input type="hidden" name="id_page" value="<?= $menu_item->id; ?>" />
                                             <span></span>
                                         </label>
-                                        <input type="hidden" name="type" value="<?= $k ?>" />
-                                    <?php } ?>
+                                        <input type="hidden" name="type" value="Adnduweb\Ci4_page" />
                                 <?php } ?>
                             </div>
                         </div>
@@ -111,7 +109,7 @@
                 url: basePath + segementAdmin + "/sp-admin-ajax",
                 data: {
                     ajax: true,
-                    controller: "AdminMenusController",
+                    controller: "AdminMenuController",
                     action: "sortmenu",
                     value: list.nestable('toArray'),
                     module: window.btoa('Adnduweb/Ci4_menu'),
@@ -188,7 +186,7 @@
                 url: basePath + segementAdmin + "/sp-admin-ajax",
                 data: {
                     ajax: true,
-                    controller: "AdminMenusController",
+                    controller: "AdminMenuController",
                     action: "saveMenu",
                     value: $('#menu-add-module').serialize(),
                     module: window.btoa('Adnduweb/Ci4_menu'),
@@ -253,7 +251,7 @@
                 url: basePath + segementAdmin + "/sp-admin-ajax",
                 data: {
                     ajax: true,
-                    controller: "AdminMenusController",
+                    controller: "AdminMenuController",
                     action: "saveMenuCustom",
                     value: $('#menu-' + action).serialize(),
                     module: window.btoa('Adnduweb/Ci4_menu'),
@@ -312,7 +310,7 @@
                 url: basePath + segementAdmin + "/sp-admin-ajax",
                 data: {
                     ajax: true,
-                    controller: "AdminMenusController",
+                    controller: "AdminMenuController",
                     action: "getMenu",
                     value: id,
                     module: window.btoa('Adnduweb/Ci4_menu'),
@@ -357,7 +355,7 @@
                         url: basePath + segementAdmin + "/sp-admin-ajax",
                         data: {
                             ajax: true,
-                            controller: "AdminMenusController",
+                            controller: "AdminMenuController",
                             action: "deleteMenuItem",
                             value: id,
                             module: window.btoa('Adnduweb/Ci4_menu'),
@@ -419,7 +417,7 @@
             //     url: basePath + segementAdmin + "/sp-admin-ajax",
             //     data: {
             //         ajax: true,
-            //         controller: "AdminMenusController",
+            //         controller: "AdminMenuController",
             //         action: "deleteMenuItem",
             //         value: id,
             //         module: window.btoa('Adnduweb/Ci4_menu'),
