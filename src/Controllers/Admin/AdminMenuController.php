@@ -78,6 +78,11 @@ class AdminMenuController extends AdminController
     public $toolbarUpdate = true;
 
     /**
+     * Retour
+     */
+    public $toolbarBack = true;
+
+    /**
      * @var \App\Models\FormModel
      */
     public $tableModel;
@@ -108,11 +113,12 @@ class AdminMenuController extends AdminController
         if (is_object($parent) && $parent->getStatusCode() == 307) {
             return $parent;
         }
-        $this->data['multilangue_list'] = $this->multilangue_list;
-        $this->data['fakedata'] = $this->fake;
-        $this->data['changeCategorie'] = $this->changeCategorie;
-        $menu_main_id = (int) $id;
-        $this->data['menu_item'] = $this->tableModel->getMenuMain($menu_main_id);
+        $this->data['multilangue_list']  = $this->multilangue_list;
+        $this->data['fakedata']          = $this->fake;
+        $this->data['changeCategorie']   = $this->changeCategorie;
+        $this->data['addPathController'] = '/' . config('Menu')->urlMenuAdmin .  $this->pathcontroller . '/add';
+                    $menu_main_id        = (int) $id;
+        $this->data['menu_item']         = $this->tableModel->getMenuMain($menu_main_id);
         if (empty($this->data['menu_item'])) {
             Tools::set_message('danger', lang('Core.item_no_exist'), lang('Core.warning_error'));
             return redirect()->to('/' . CI_SITE_AREA . $this->pathcontroller . '/1');
@@ -309,16 +315,17 @@ class AdminMenuController extends AdminController
             return redirect()->to('/' . CI_SITE_AREA . $this->pathcontroller . '/1');
         }
 
-        $this->data['backPathController'] = $this->pathcontroller . '/1';
-        $this->data['multilangue'] = (isset($this->multilangue)) ? $this->multilangue : false;;
+        $this->data['toolbarBack']        = $this->toolbarBack;
+        $this->data['backPathController'] =  '/' . config('Menu')->urlMenuAdmin .  $this->pathcontroller . '/1';
+        $this->data['multilangue']        = (isset($this->multilangue)) ? $this->multilangue : false;;
 
         if (is_null($id)) {
             $this->data['action'] = 'add';
-            $this->data['add_title']  = lang('Core.add_' . $this->item);
+            $this->data['add_title']  = lang('Core.add_' . $this->controller);
             $this->data['form'] = new MenuMain($this->request->getPost());
         } else {
             $this->data['action'] = 'edit';
-            $this->data['edit_title'] = lang('Core.edit_' . $this->item);
+            $this->data['edit_title'] = lang('Core.edit_' . $this->controller);
             $this->data['form'] = $this->tableModel->getMenuMain($id);
             $this->data['title_detail'] = $this->data['form']->name;
         }
